@@ -1,10 +1,8 @@
 import allure
 from pages.base_page import BasePage
 from locators.header_locators import HeaderLocators
-from selenium.webdriver.support.wait import WebDriverWait
 
 class HeaderPage(BasePage):
-
     @allure.step("Кликнуть на логотип 'Самокат'")
     def click_scooter_logo(self):
         self.click_element(HeaderLocators.LOGO_SCOOTER)
@@ -16,8 +14,5 @@ class HeaderPage(BasePage):
     @allure.step("Переключиться на новую вкладку и дождаться загрузки Дзена")
     def check_yandex_open_dzen(self):
         self.switch_to_new_window()
-        
-        WebDriverWait(self.driver, 10).until(
-            lambda d: "dzen.ru" in d.current_url
-        )
+        self.wait_for_url_contains("dzen.ru")
         return self.driver.current_url
